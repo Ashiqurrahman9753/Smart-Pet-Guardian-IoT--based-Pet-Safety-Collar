@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Location Sensor Map</title>
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+        body{
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: black;
+    }
+
+    h1 {
+      font-size: 36px;
+      color: #333;
+      text-align: center;
+      margin: 10px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    </style>
+</head>
+<body>
+    <h1>Location Sensor Map</h1>
+    <div id="map"></div>
+
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // Location coordinates
+            var defaultLocation = { lat: 53.3438, lng: -6.2546 };
+
+            // Create a map object and specify the DOM element for display.
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: defaultLocation,
+                zoom: 12 // Adjust the initial zoom level as needed
+            });
+
+            // Create a marker and set its position to the default location.
+            var marker = new google.maps.Marker({
+                map: map,
+                position: defaultLocation,
+                draggable: true // Allow the marker to be dragged
+            });
+
+            // Add a circle around the marker
+            var circle = new google.maps.Circle({
+                map: map,
+                radius: 1000, // in meters; you can adjust this radius
+                fillColor: 'light-blue',
+                fillOpacity: 0.3,
+                strokeColor: 'blue',
+                strokeOpacity: 0.8,
+                strokeWeight: 2
+            });
+            circle.bindTo('center', marker, 'position');
+
+            // Function to update marker position
+            function updateMarkerPosition() {
+                var newPos = marker.getPosition();
+                // Here you should update the position of your sensor externally
+                // For demonstration purposes, let's just log the new position
+                console.log('New Marker Position:', newPos.lat(), newPos.lng());
+            }
+
+            // Event listener for marker position change
+            google.maps.event.addListener(marker, 'dragend', updateMarkerPosition);
+        }
+    </script>
+    <!-- Load the Maps JavaScript API asynchronously -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr7X2_Zf0aR8UAthoYqR_37noQJ-0I1LY&libraries=places&callback=initMap"></script>
+    <!-- Replace YOUR_API_KEY with your actual Google Maps API key -->
+</body>
+</html>

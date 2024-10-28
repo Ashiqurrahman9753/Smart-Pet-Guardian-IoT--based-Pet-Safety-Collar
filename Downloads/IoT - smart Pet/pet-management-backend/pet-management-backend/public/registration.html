@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <style>
+        body {
+            cursor: none; /* Hide the default cursor */
+            font-family: Arial, sans-serif;
+            /* Background image */
+            background-image: url('public/Susan-and-Jim-Kowalczik-with-Jimmy-the-bear.webp');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .registration-container {
+            background-color: rgba(255, 255, 255, 0.45);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        .registration-container h2 {
+            margin-bottom: 20px;
+            color: #333333;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .btn.cancel {
+            background-color: #dc3545;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* Custom cursor styles */
+        body {
+            cursor: none; /* Hide the default cursor */
+        }
+
+        .custom-cursor {
+            position: fixed;
+            width: 50px; /* Adjust size as needed */
+            height: 50px; /* Adjust size as needed */
+            background-image: url('c://Users//SHAUNAK//Downloads//cat_paw.png'); /* Image of cat paw */
+            background-size: contain;
+            pointer-events: none; /* Make sure the cursor doesn't interfere with mouse events */
+            z-index: 9999; /* Ensure the cursor stays on top */
+        }
+    </style>
+</head>
+<body>
+
+<div id="registration-form" class="registration-container">
+    <h2>Register</h2>
+    <form id="register-form" action="/register" method="post">
+            <div class="input-group">
+                <input type="text" id="userid" name="userid" placeholder="User ID" required>
+            </div>
+            <div class="input-group">
+                <input type="text" id="username" name="username" placeholder="Username" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+            </div>
+            <div class="input-group">
+                <input type="email" id="email" name="email" placeholder="Email ID" required>
+            </div>
+            <div class="input-group">
+                <input type="email" id="confirm_email" name="confirm_email" placeholder="Confirm Email ID" required>
+                <span id="confirm_email_error" class="error-message"></span>
+            </div>
+            <button type="submit" class="btn">Register</button>
+            <button type="button" class="btn cancel" id="back-btn">Back</button>
+        <!-- Remove the "Back" button for now -->
+    </form>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  const cursor = document.createElement("div");
+  cursor.classList.add("custom-cursor");
+  document.body.appendChild(cursor);
+
+  document.addEventListener("mousemove", function (e) {
+      cursor.style.left = e.pageX + "px";
+      cursor.style.top = e.pageY + "px";
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+          const urlParams = new URLSearchParams(window.location.search);
+          const error = urlParams.get('error');
+
+          if (error === 'userExists') {
+              // Display a toast notification indicating that the user already exists
+              alert('Username already exists. Please try a different username or login.');
+          }
+    });
+
+  // Function to clear error messages
+  function clearErrors() {
+    const errorElements = document.querySelectorAll('.error-message');
+    errorElements.forEach(function(element) {
+      element.textContent = '';
+    });
+  }
+
+  // Function to display error messages
+  function displayError(id, message) {
+    const errorElement = document.getElementById(id);
+    errorElement.textContent = message;
+  }
+
+  // Event listener for the "Back" button
+  document.getElementById('back-btn').addEventListener('click', function() {
+    // Navigate back to the previous page or hide the registration form
+    window.history.back();
+  });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+    const success = urlParams.get('success');
+
+    if (error === 'emailMismatch') {
+        // Display the error message
+        alert('Email and confirm email do not match');
+    } else if (error === 'registrationError') {
+        // Display the registration error message
+        alert('Error registering user');
+    }
+
+    if (success === 'true') {
+        // Display the success message
+        alert('User registered successfully');
+
+        // Redirect to the login page after a brief delay (e.g., 3 seconds)
+        setTimeout(function () {
+            window.location.href = '/login.html'; // Replace 'login.html' with the actual login page URL
+        }, 3000); // 3000 milliseconds = 3 seconds
+    }
+});
+</script>
+
+</body>
+</html>
