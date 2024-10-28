@@ -67,11 +67,6 @@ This guide will walk you through setting up the Smart Pet Guardian system, inclu
   - Verify the system's functionality by accessing the ESP32 through its local IP address in a web browser.
   - Check for proper communication across all system components and correct data display on the UI.
 
-## Contributing
-Guidelines for contributing to the project, including coding standards, pull request processes, and contact information for the lead developers.
-
-## License
-Specify the type of license under which the project is released, for example, MIT, GPL, etc.
 
 ## Authors
 - **Tanay Darda**
